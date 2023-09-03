@@ -1,17 +1,14 @@
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import { readdirSync, watch } from "node:fs";
 import type { PluginOption, ResolvedConfig } from "vite";
 import type { FastifyInstance } from "fastify";
 import Fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 import fastifyWebsocket from "@fastify/websocket";
+import { DIR_CLIENT } from "./dir";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-export default (options?: { path: string }) => {
-	let { path = "/src/assets/images" } = options || {};
+export default (options?: { path?: string; port?: number }) => {
+	let { path = "/src/assets/images", port = 7747 } = options || {};
 	let config: ResolvedConfig;
 	let fastify: FastifyInstance;
 	return {
@@ -23,10 +20,9 @@ export default (options?: { path: string }) => {
 		},
 
 		buildStart() {
-			// if (!config || config?.command !== "serve") return;
 			fastify = Fastify();
 
-			fastify.register(fastifyStatic, { root: join(__dirname, "client") });
+			fastify.register(fastifyStatic, { root: DIR_CLIENT });
 
 			fastify.register(fastifyStatic, { root: join(config.root, path), prefix: "/images/", decorateReply: false });
 
@@ -47,14 +43,13 @@ export default (options?: { path: string }) => {
 			});
 
 			fastify.get("/api/images", () => readdirSync(join(config.root, path)));
-			fastify.get("/api/options", () => ({ path }));
+			fastify.get("/api/options", () => ({ path, port }));
 
-			fastify.listen({ port: 8848 });
+			fastify.listen({ port });
 		},
 
 		buildEnd() {
 			fastify?.close();
 		},
-
 	} as PluginOption;
 };

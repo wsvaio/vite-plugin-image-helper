@@ -10,6 +10,7 @@ export default defineConfig({
 	plugins: [
 		vue(),
 	],
+
 	build: {
 		target: "esnext",
 		outDir: resolve(__dirname, "../../dist/client"),
