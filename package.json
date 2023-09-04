@@ -1,79 +1,76 @@
 {
-	"name": "vite-plugin-image-helper",
-	"type": "module",
-	"version": "0.0.0",
-	"packageManager": "pnpm@8.6.12",
-	"description": "Convenient use of images of Vite plugins",
-	"author": "wsvaio <wsvaio@qq.com>",
-	"license": "MIT",
-	"funding": "https://github.com/sponsors/wsvaio",
-	"homepage": "https://github.com/wsvaio/vite-plugin-image-helper#readme",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/wsvaio/vite-plugin-image-helper.git"
-	},
-	"bugs": {
-		"url": "https://github.com/wsvaio/vite-plugin-image-helper/issues"
-	},
-	"keywords": [
-		"vite-plugin"
-	],
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
-		},
-		"./*": "./*"
-	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"typesVersions": {
-		"*": {
-			"*": [
-				"./dist/*",
-				"./*"
-			]
-		}
-	},
-	"files": [
-		"dist",
-		"*.d.ts"
-	],
-	"engines": {
-		"node": ">=14"
-	},
-	"scripts": {
-		"dev": "tsup --watch",
-		"dev:client": "vite build src/client --watch",
-		"dev:playground": "vite ./playground",
-		"build": "tsup",
-		"build:client": "vite build src/client",
-		"build:playground": "vite build ./playground",
-		"lint": "eslint .",
-		"prepublishOnly": "pnpm build",
-		"release": "bumpp && npm publish"
-	},
-	"peerDependencies": {
-		"vite": "^3.1.0 || ^4.0.0"
-	},
-	"devDependencies": {
-		"@types/node": "^20.5.7",
-		"@wsvaio/eslint-config": "^0.0.6",
-		"less": "^4.2.0",
-		"naive-ui": "^2.34.4",
-		"tsup": "^7.2.0",
-		"unplugin-auto-import": "^0.16.6",
-		"unplugin-vue-components": "^0.25.2",
-		"vite": "^4.4.9"
-	},
-	"dependencies": {
-		"@fastify/static": "^6.11.0",
-		"@fastify/websocket": "^8.2.0",
-		"fastify": "^4.22.2"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "vite-plugin-image-helper",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@8.6.12",
+  "description": "Convenient use of images of Vite plugins",
+  "author": "wsvaio <wsvaio@qq.com>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/wsvaio",
+  "homepage": "https://github.com/wsvaio/vite-plugin-image-helper#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wsvaio/vite-plugin-image-helper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wsvaio/vite-plugin-image-helper/issues"
+  },
+  "keywords": [
+    "vite-plugin"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./*": "./*"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "dev:client": "vite build src/client --watch",
+    "dev:playground": "vite ./playground",
+    "build": "tsup",
+    "build:client": "vite build src/client",
+    "build:playground": "vite build ./playground",
+    "lint": "eslint .",
+    "prepublishOnly": "pnpm build",
+    "release": "bumpp && npm publish"
+  },
+  "peerDependencies": {
+    "vite": "^3.1.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.7",
+    "@wsvaio/eslint-config": "^0.0.6",
+    "tsup": "^7.2.0",
+    "vite": "^4.4.9"
+  },
+  "dependencies": {
+    "@fastify/static": "^6.11.0",
+    "@fastify/websocket": "^8.2.0",
+    "fastify": "^4.22.2",
+    "picocolors": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
