@@ -4,5 +4,5 @@ import ImageHelper from "vite-plugin-image-helper";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [vue(), ImageHelper({ path: "/src/assets/images" })],
+	plugins: [vue(), ImageHelper({ path: "/src/assets/images", port: 8848 })],
 });

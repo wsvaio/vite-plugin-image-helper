@@ -67,7 +67,8 @@
   "dependencies": {
     "@fastify/static": "^6.11.0",
     "@fastify/websocket": "^8.2.0",
-    "fastify": "^4.22.2"
+    "fastify": "^4.22.2",
+    "picocolors": "^1.0.0"
   },
   "publishConfig": {
     "access": "public"

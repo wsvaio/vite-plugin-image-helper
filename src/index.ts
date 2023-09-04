@@ -5,6 +5,7 @@ import type { FastifyInstance } from "fastify";
 import Fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 import fastifyWebsocket from "@fastify/websocket";
+import c from "picocolors";
 import { DIR_CLIENT } from "./dir";
 
 const deep = (root: string, path: string) => {
@@ -35,6 +36,19 @@ export default (options?: { path?: string | string[]; port?: number }) => {
 			config = _config;
 		},
 
+		configureServer(server) {
+			const printUrls = server.printUrls;
+			server.printUrls = () => {
+				printUrls();
+
+				const colorUrl = (url: string) => c.yellow(url.replace(/:(\d+)\//, (_, port) => `:${c.bold(port)}/`));
+				console.log(
+					`  ${c.green("➜")}  ${c.bold("ImageHelper")}: ${colorUrl(
+						`${config.server.https ? "https" : "http"}://localhost:${port}/`
+					)}`
+				);
+			};
+		},
 		buildStart() {
 			fastify = Fastify();
 
@@ -59,8 +73,6 @@ export default (options?: { path?: string | string[]; port?: number }) => {
 			fastify.get("/api/paths", () => paths.map(item => deep(config.root, item)));
 
 			fastify.get("/api/file", async req => statSync(join(config.root, (req.query as any).path)));
-
-			// fastify.get("/api/options", () => ({ path, port }));
 
 			fastify.listen({ port });
 		},
