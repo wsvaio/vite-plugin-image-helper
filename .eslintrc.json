@@ -1,3 +1,10 @@
 {
-  "extends": ["@wsvaio"]
+	"extends": ["@wsvaio"],
+	"rules": {
+		"@typescript-eslint/no-use-before-define": "off",
+		"@typescript-eslint/brace-style": "off",
+		"unused-imports/no-unused-vars": "off",
+		"vue/first-attribute-linebreak": "off",
+		"vue/html-closing-bracket-newline": "off"
+	}
 }
