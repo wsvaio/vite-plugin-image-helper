@@ -62,7 +62,7 @@ export default (options?: { path?: string | string[]; port?: number }) => {
 			});
 
 			fastify.get("/api/paths", () => {
-				const result: { path: string; names: any[] }[] = [];
+				const result = [];
 				paths.forEach(item =>
 					result.push({
 						path: item,
