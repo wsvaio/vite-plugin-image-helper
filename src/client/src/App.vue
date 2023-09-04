@@ -3,7 +3,7 @@ import { reactive, ref } from "vue";
 
 const images = ref<string[]>([]);
 const refreshImages = () => {
-	fetch("/api/images")
+	fetch("/api/paths")
 		.then(data => data.json())
 		.then(data => {
 			images.value.length = 0;
@@ -15,32 +15,14 @@ const refreshImages = () => {
 };
 refreshImages();
 
-const options = ref({ path: "" });
-const refreshOptions = () => {
-	fetch("/api/options")
-		.then(data => data.json())
-		.then(data => (options.value = data))
-		.catch(error => {
-			document.write(error);
-		});
-};
-refreshOptions();
-
-const ws = new WebSocket(`ws://${location.host}`);
+const ws = new WebSocket(`ws://${location.host}/ws`);
 
 ws.addEventListener("message", refreshImages);
-
-const handleClick = (item: string) => {
-	navigator.clipboard.writeText(`${options.value.path}/${item}`);
-};
 </script>
 
 <template>
 	<div>
-		<img
-			v-for="item in images" :src="`/images/${item}`" :title="item" :alt="item"
-			@click="handleClick(item)"
-		/>
+		<img v-for="item in images" :src="`/images/${item}`" :title="item" :alt="item" />
 	</div>
 </template>
 
