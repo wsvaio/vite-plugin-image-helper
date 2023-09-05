@@ -19,17 +19,6 @@ const refreshImages = () => {
 };
 refreshImages();
 
-const options = ref({ path: "" });
-const refreshOptions = () => {
-	fetch("/api/options")
-		.then(data => data.json())
-		.then(data => (options.value = data))
-		.catch(error => {
-			document.write(error);
-		});
-};
-refreshOptions();
-
 const ws = new WebSocket(`ws://${location.host}/ws`);
 
 ws.addEventListener("message", refreshImages);
@@ -99,7 +88,7 @@ const copy = async (path: string) => {
 		</div>
 	</div>
 	<n-drawer v-model:show="active" :width="502" placement="bottom" height="450">
-		<n-drawer-content title="图片信息">
+		<n-drawer-content title="图片信息" closable>
 			<div class="image">
 				<div class="image--box">
 					<img :src="`${drawerData?.url}`" alt="" />

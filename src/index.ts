@@ -20,6 +20,21 @@ const deep = (root: string, path: string) => {
 	return result;
 };
 
+const flat = (root: string, path: string) => {
+	const result: { path: string; names: string[] }[] = [];
+	const active = { path, names: [] };
+	result.push(active);
+	const dirs = readdirSync(join(root, path));
+
+	for (const dir of dirs) {
+		const stats = statSync(join(root, path, dir));
+		if (stats.isDirectory()) result.push(...flat(root, join(path, dir)));
+		else if (stats.isFile()) active.names.push(dir);
+	}
+
+	return result;
+};
+
 export default (options?: { path?: string | string[]; port?: number }) => {
 	const { path = "/src/assets/images", port = 7747 } = options || {};
 
@@ -70,7 +85,9 @@ export default (options?: { path?: string | string[]; port?: number }) => {
 				})
 			);
 
-			fastify.get("/api/paths", () => paths.map(item => deep(config.root, item)));
+			fastify.get("/api/paths/tree", () => paths.map(item => deep(config.root, item)));
+
+			fastify.get("/api/paths/flat", () => paths.map(item => flat(config.root, item)).flat());
 
 			fastify.get("/api/file", async req => statSync(join(config.root, (req.query as any).path)));
 

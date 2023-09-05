@@ -16,7 +16,10 @@
     "url": "https://github.com/wsvaio/vite-plugin-image-helper/issues"
   },
   "keywords": [
-    "vite-plugin"
+    "vite",
+    "plugin",
+    "image",
+    "helper"
   ],
   "exports": {
     ".": {
@@ -52,8 +55,7 @@
     "build:client": "vite build src/client",
     "build:playground": "vite build ./playground",
     "lint": "eslint .",
-    "prepublishOnly": "pnpm build",
-    "release": "bumpp && npm publish"
+    "prepublishOnly": "pnpm build && pnpm build:client"
   },
   "peerDependencies": {
     "vite": "^3.1.0 || ^4.0.0"
