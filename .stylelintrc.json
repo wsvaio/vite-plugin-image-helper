@@ -1,0 +1,17 @@
+{
+	"root": true,
+	"extends": ["@wsvaio/stylelint-config"],
+	"rules": {
+		"media-feature-range-notation": null,
+
+		"order/order": [
+			"at-rules",
+			"custom-properties",
+			"dollar-variables",
+			"at-variables",
+			"declarations",
+			"rules",
+			"less-mixins"
+		]
+	}
+}

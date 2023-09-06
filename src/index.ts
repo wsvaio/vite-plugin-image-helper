@@ -1,35 +1,25 @@
 import { join } from "node:path";
 import { readdirSync, statSync, watch } from "node:fs";
-import { type PluginOption, type ResolvedConfig, normalizePath } from "vite";
+import { type PluginOption, type ResolvedConfig } from "vite";
 import type { FastifyInstance } from "fastify";
 import Fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 import fastifyWebsocket from "@fastify/websocket";
 import c from "picocolors";
+import { normalizePath } from "vite";
 import { DIR_CLIENT } from "./dir";
 
-const deep = (root: string, path: string) => {
+const flat = (root: string, path: string, ...names: string[]) => {
 	path = normalizePath(path);
-	const result = { path, names: [], children: [] };
-	const dirs = readdirSync(join(root, path));
-	for (const dir of dirs) {
-		const stats = statSync(join(root, path, dir));
-		if (stats.isDirectory()) result.children.push(deep(root, join(path, dir)));
-		else if (stats.isFile()) result.names.push(dir);
-	}
-	return result;
-};
-
-const flat = (root: string, path: string) => {
 	const result: { path: string; names: string[] }[] = [];
-	const active = { path, names: [] };
-	result.push(active);
-	const dirs = readdirSync(join(root, path));
+	const active = { path, names: [] as string[] };
 
-	for (const dir of dirs) {
-		const stats = statSync(join(root, path, dir));
-		if (stats.isDirectory()) result.push(...flat(root, join(path, dir)));
-		else if (stats.isFile()) active.names.push(dir);
+	result.push(active);
+
+	for (const item of readdirSync(join(root, path))) {
+		const stats = statSync(join(root, path, item));
+		if (stats.isDirectory()) result.push(...flat(root, join(path, item), ...names));
+		else if (stats.isFile() && (!names.length || names.some(sub => item.includes(sub)))) active.names.push(item);
 	}
 
 	return result;
@@ -85,9 +75,21 @@ export default (options?: { path?: string | string[]; port?: number }) => {
 				})
 			);
 
-			fastify.get("/api/paths/tree", () => paths.map(item => deep(config.root, item)));
-
-			fastify.get("/api/paths/flat", () => paths.map(item => flat(config.root, item)).flat());
+			fastify.get("/api/paths", req =>
+				paths
+					.map(item =>
+						flat(
+							config.root,
+							item,
+							...(Array.isArray((req.query as any).name)
+								? (req.query as any).name
+								: (req.query as any).name
+									? [(req.query as any).name]
+									: [])
+						)
+					)
+					.flat()
+			);
 
 			fastify.get("/api/file", async req => statSync(join(config.root, (req.query as any).path)));
 

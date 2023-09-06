@@ -1,18 +1,35 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
+		"useDefineForClassFields": true,
 		"module": "ESNext",
-		"lib": ["ESNext", "DOM"],
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"skipLibCheck": true,
+
+		/* Bundler mode */
 		"moduleResolution": "node",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "preserve",
 
-		"esModuleInterop": true,
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"allowSyntheticDefaultImports": true,
 
-		"noImplicitAny": false
+		/* append */
+		"noImplicitAny": false,
+
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/client/src/*"]
+		},
+		"types": ["vite/client", "@vue-macros/reactivity-transform/macros-global", "naive-ui/volar"]
 	},
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+
+	"references": [{ "path": "./tsconfig.node.json" }]
 }
