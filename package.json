@@ -50,6 +50,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "dev:client": "vite build src/client --watch",
+    "dev:cli": "vite dev src/client",
     "dev:playground": "vite ./playground",
     "build": "tsup",
     "build:client": "vite build src/client",
@@ -61,17 +62,20 @@
     "vite": "^3.1.0 || ^4.0.0"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.112",
     "@types/node": "^20.5.7",
     "@vue-macros/reactivity-transform": "^0.3.22",
     "@wsvaio/api": "1.1.0-3",
     "@wsvaio/commitlint-config": "^0.0.6",
     "@wsvaio/eslint-config": "^0.0.6",
+    "@wsvaio/pinia-plugin-persist": "^1.0.2",
     "@wsvaio/stylelint-config": "^0.0.6",
     "@wsvaio/use": "1.2.0-5",
     "@wsvaio/utils": "^1.0.15",
     "less": "^4.2.0",
     "lint-staged": "^14.0.1",
     "naive-ui": "^2.34.4",
+    "pinia": "^2.1.6",
     "tsup": "^7.2.0",
     "unocss": "^0.55.7",
     "unplugin-auto-import": "^0.16.6",

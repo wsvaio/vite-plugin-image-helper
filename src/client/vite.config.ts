@@ -24,9 +24,26 @@ export default defineConfig({
 		}),
 		ReactivityTransform(),
 		AutoImport({
-			imports: ["vue"],
+			imports: [
+				"vue",
+				"pinia",
+				{
+					"naive-ui": ["useDialog", "useMessage", "useNotification", "useLoadingBar"],
+				},
+			],
+			// resolvers: [NaiveUiResolver()],
+			// vueTemplate: true,
+
+			defaultExportByFilename: true,
+			dirs: [
+				"src/utils",
+				"src/composables",
+				"src/stores",
+				"src/apis",
+			],
 		}),
 		Components({
+			globs: ["src/components/*/index.vue"],
 			resolvers: [NaiveUiResolver()],
 		}),
 		Unocss(),

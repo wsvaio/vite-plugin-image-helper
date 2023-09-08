@@ -21,6 +21,9 @@ importers:
         specifier: ^1.0.0
         version: registry.npmmirror.com/picocolors@1.0.0
     devDependencies:
+      '@iconify/json':
+        specifier: ^2.2.112
+        version: 2.2.112
       '@types/node':
         specifier: ^20.5.7
         version: 20.5.9
@@ -36,6 +39,9 @@ importers:
       '@wsvaio/eslint-config':
         specifier: ^0.0.6
         version: 0.0.6(eslint@8.48.0)(typescript@5.2.2)
+      '@wsvaio/pinia-plugin-persist':
+        specifier: ^1.0.2
+        version: 1.0.2(pinia@2.1.6)
       '@wsvaio/stylelint-config':
         specifier: ^0.0.6
         version: 0.0.6(postcss@8.4.29)(stylelint@15.10.3)
@@ -54,6 +60,9 @@ importers:
       naive-ui:
         specifier: ^2.34.4
         version: 2.34.4(vue@3.3.4)
+      pinia:
+        specifier: ^2.1.6
+        version: 2.1.6(typescript@5.2.2)(vue@3.3.4)
       tsup:
         specifier: ^7.2.0
         version: 7.2.0(postcss@8.4.29)(typescript@5.2.2)
@@ -634,6 +643,13 @@ packages:
 
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify/json@2.2.112:
+    resolution: {integrity: sha512-afpJMOJ07CoGUAMt/9OAuveQ/JdX+RLi+MCMczeq83t6cttrFSdHbh8k2Vuz6UZPXlgL7c6Yl/nbi83HsMXTTg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+      pathe: 1.1.1
     dev: true
 
   /@iconify/types@2.0.0:
@@ -1247,6 +1263,10 @@ packages:
       '@vue/compiler-dom': 3.3.4
       '@vue/shared': 3.3.4
 
+  /@vue/devtools-api@6.5.0:
+    resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
+    dev: true
+
   /@vue/reactivity-transform@3.3.4:
     resolution: {integrity: sha512-MXgwjako4nu5WFLAjpBnCj/ieqcjE2aJBINUNQzkZQfzIZA4xn+0fV1tIYBJvvva3N3OvKGofRLvQIwEQPpaXw==}
     dependencies:
@@ -1310,6 +1330,15 @@ packages:
       - jest
       - supports-color
       - typescript
+    dev: true
+
+  /@wsvaio/pinia-plugin-persist@1.0.2(pinia@2.1.6):
+    resolution: {integrity: sha512-3IOtuInGV6zHm3Uaef9lLgpkXL24GCRm59LAGzfktuWN+dV6PT3Xlf1DXSY8QWBL/O5HB7mWVxtBZ0ml7BXTyg==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.1.6(typescript@5.2.2)(vue@3.3.4)
     dev: true
 
   /@wsvaio/stylelint-config@0.0.6(postcss@8.4.29)(stylelint@15.10.3):
@@ -3647,6 +3676,24 @@ packages:
     engines: {node: '>=6'}
     dev: true
     optional: true
+
+  /pinia@2.1.6(typescript@5.2.2)(vue@3.3.4):
+    resolution: {integrity: sha512-bIU6QuE5qZviMmct5XwCesXelb5VavdOWKWaB17ggk++NUwQWWbP5YnsONTk3b752QkW9sACiR81rorpeOMSvQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.3.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      typescript: 5.2.2
+      vue: 3.3.4
+      vue-demi: 0.14.6(vue@3.3.4)
+    dev: true
 
   /pino-abstract-transport@1.0.0:
     resolution: {integrity: sha512-c7vo5OpW4wIS42hUVcT5REsL8ZljsUfBjqV/e2sFxmFEFZiq1XLUp5EYLtuDH6PEHq9W1egWqRbnLUP5FuZmOA==}
