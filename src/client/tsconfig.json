@@ -26,11 +26,10 @@
 
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./src/client/src/*"]
+			"@/*": ["./src/*"]
 		},
 		"types": ["vite/client", "@vue-macros/reactivity-transform/macros-global", "naive-ui/volar"]
 	},
 
 	"references": [{ "path": "./tsconfig.node.json" }],
-	"include": ["./src/index.ts"]
 }
