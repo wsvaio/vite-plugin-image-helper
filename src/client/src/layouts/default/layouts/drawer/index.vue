@@ -6,7 +6,7 @@ import { joinFileUrl } from "@/apis";
 
 const payload = usePayload<Payload, Actions>({ $mode: "inject" });
 const { fileInfo } = $(payload);
-
+const main = useMainStore();
 payload.$use("打开抽屉")(async ({ fileInfo: { path, name } }) => {
 	payload.$action({ fileInfo: await getFileInfo({ q: { path: `${path}/${name}` } }) });
 });
@@ -22,12 +22,13 @@ const options = $computed(() => [
 	{ value: 0, label: `${fileInfo.path}/${fileInfo.name}` },
 	{
 		value: 1,
-		label: `import ${fileInfo.name.split(".")[0]} from '${fileInfo.path}/${fileInfo.name}'`,
+		label: `import ${fileInfo.name.split(".")[0]} from "${fileInfo.path}/${fileInfo.name}";`,
 	},
-	{ value: 2, label: `<img src='${`${fileInfo.path}/${fileInfo.name}`}' />` },
+	{ value: 2, label: `<img src="${`${fileInfo.path}/${fileInfo.name}`}" />` },
+	{ value: 3, label: `url("${`${fileInfo.path}/${fileInfo.name}`}")` },
 ]);
 
-const label = $computed(() => options.find(item => item.value == payload.select)?.label);
+const label = $computed(() => options.find(item => item.value == main.select)?.label);
 </script>
 
 <template>
@@ -47,7 +48,7 @@ const label = $computed(() => options.find(item => item.value == payload.select)
 			/>
 			<n-space vertical>
 				<div class="flex ~ items-center">
-					<n-popselect v-model:value="payload.select" :options="options" trigger="click" placement="right">
+					<n-popselect v-model:value="main.select" :options="options" trigger="click" placement="right">
 						<n-button text>
 							<div class="i-ic:baseline-toc" text="24px" />
 						</n-button>

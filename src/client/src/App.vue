@@ -1,9 +1,13 @@
 <script lang="ts" setup>
-import { darkTheme, dateZhCN, lightTheme, zhCN } from "naive-ui";
+import { darkTheme, dateZhCN, lightTheme, useThemeVars, zhCN } from "naive-ui";
 import LayoutDefault from "./layouts/default/index.vue";
 import useMainStore from "./stores/useMainStore";
 
 const main = useMainStore();
+
+const themeVars = useThemeVars();
+
+console.log(themeVars);
 </script>
 
 <template>

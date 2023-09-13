@@ -6,9 +6,11 @@ import { joinFileUrl } from "@/apis";
 
 const payload = usePayload<Payload, Actions>({ $mode: "inject" });
 const { params } = $(payload);
+const main = useMainStore();
+
 let expandedNames = $ref<string[] | null>(null);
 
-const { data } = useRequest(
+const { data, refreshAsync } = useRequest(
 	async () => await getPaths({ q: { name: params?.name?.split(" ")?.filter(item => !!item) } }),
 	{
 		refreshDeps: () => [params.name],
@@ -20,7 +22,9 @@ const { data } = useRequest(
 	}
 );
 
-const main = useMainStore();
+const ws = new WebSocket(`ws://${location.host}/ws`);
+ws.addEventListener("message", refreshAsync);
+onUnmounted(() => ws.close());
 </script>
 
 <template>
@@ -58,5 +62,3 @@ const main = useMainStore();
 		</n-collapse>
 	</n-layout-content>
 </template>
-
-<style lang="less" scoped></style>

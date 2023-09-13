@@ -9,13 +9,12 @@ usePayload<Payload, Actions>({
 	params: { name: "" },
 	fileInfo: {},
 	show: false,
-	select: 0,
 	$mode: "provide"
 });
 </script>
 
 <template>
-	<n-layout h="full">
+	<n-layout h="full" :scrollbar-props="{ size: 200 }">
 		<l-header />
 		<l-content />
 		<l-drawer />
