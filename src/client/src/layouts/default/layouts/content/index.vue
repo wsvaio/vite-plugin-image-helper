@@ -23,6 +23,7 @@ const { data, refreshAsync } = useRequest(
 );
 
 const ws = new WebSocket(`ws://${location.host}/ws`);
+
 ws.addEventListener("message", refreshAsync);
 onUnmounted(() => ws.close());
 </script>

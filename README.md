@@ -23,10 +23,19 @@ npm i -D vite-plugin-image-helper
 import ImageHelper from "vite-plugin-image-helper";
 
 export default {
+	resolve: {
+		alias: {
+			"@/": `${resolve(__dirname, "src")}/`,
+		},
+	},
 	plugins: [
 		ImageHelper({
-			path: "/src/assets/images",
+			// 配置静态资源存放的路径（可以解析配置的resolve.alias）
+			path: "@/assets", // or "/src/assets" or ["@/assets", ...]
+			// 配置帮助页面的端口
 			port: 7747,
+			// 开启websocket，若对path中的文件进行了改动，可以实时更新
+			ws: true,
 		}),
 	],
 };

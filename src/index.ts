@@ -10,8 +10,8 @@ import c from "picocolors";
 import { normalizePath } from "vite";
 import { DIR_CLIENT } from "./dir";
 
-export default (options?: { path?: string | string[]; port?: number }) => {
-	const { path = "/src/assets", port = 7747 } = options || {};
+export default (options?: { path?: string | string[]; port?: number; ws?: boolean }) => {
+	const { path = "/src/assets", port = 7747, ws = true } = options || {};
 
 	let paths = Array.isArray(path) ? path : [path];
 
@@ -80,17 +80,19 @@ export default (options?: { path?: string | string[]; port?: number }) => {
 				return reply.sendFile(name, resolveAlias(path));
 			});
 
-			fastify.register(fastifyWebsocket);
+			if (ws) {
+				fastify.register(fastifyWebsocket);
 
-			fastify.register(async () =>
-				fastify.get("/ws", { websocket: true }, conn => {
-					paths.forEach(item => {
-						const watcher = watch(join(config.root, item));
-						watcher.on("change", () => conn.write(""));
-						conn.on("close", () => watcher.close());
-					});
-				})
-			);
+				fastify.register(async () =>
+					fastify.get("/ws", { websocket: true }, conn => {
+						paths.forEach(item => {
+							const watcher = watch(resolveAlias(item));
+							watcher.on("change", () => conn.write(""));
+							conn.on("close", () => watcher.close());
+						});
+					})
+				);
+			}
 
 			fastify.get("/api/paths", req =>
 				paths
