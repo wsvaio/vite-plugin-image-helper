@@ -22,6 +22,8 @@ export default (options?: { path?: string | string[]; port?: number; ws?: boolea
 		let result = "";
 		if (
 			!config.resolve.alias.some(item => {
+				/* eslint-disable array-callback-return */ // 针对于uniapp，replacement竟然可能为一个函数（无视掉并无影响）
+				if (typeof item.replacement !== "string") return;
 				if (typeof item.find == "string" ? path.startsWith(item.find) : item.find.test(path)) {
 					result = join(item.replacement, path.replace(item.find, ""));
 					return true;
